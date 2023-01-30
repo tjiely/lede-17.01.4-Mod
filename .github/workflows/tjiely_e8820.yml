@@ -145,7 +145,7 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           echo -e "$(($(nproc) + 1)) thread compile"
-          make -j$(($(nproc) + 1)) || make -j1 V=s
+          make -j$(($(nproc) + 1)) V=s
           rm -rf ${OUTPUT_DIR}
           mkdir -p ${OUTPUT_DIR}
           cp -u -f bin/targets/*/*/${LEDE_OUTPUT_NAME}-*-sysupgrade.bin ${OUTPUT_DIR}/
