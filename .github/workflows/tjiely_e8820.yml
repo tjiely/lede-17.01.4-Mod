@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Repository dispatch
-        if: ${{ github.repository == 'HiGarfield/lede-17.01.4-Mod' && github.event_name == 'push' }}
-        uses: HiGarfield/repository-dispatch@v2
+        if: ${{ github.repository == 'tjiely/lede-17.01.4-Mod' && github.event_name == 'push' }}
+        uses: tjiely/repository-dispatch@v2
         with:
           token: ${{ secrets.MY_TOKEN }}
           repository: ${{ secrets.SECOND_REPO }}
@@ -32,7 +32,7 @@ jobs:
       contents: write
     env:
       TARGET_DEVICE: ${{ matrix.target }}
-      SOURCE_REPO: 'HiGarfield/lede-17.01.4-Mod'
+      SOURCE_REPO: 'tjiely/lede-17.01.4-Mod'
     strategy:
       max-parallel: 20
       matrix:
@@ -116,7 +116,7 @@ jobs:
 
       - name: Cache
         if: ${{ env.TARGET_DEVICE != 'dl' }}
-        uses: HiGarfield/cachewrtbuild@main
+        uses: tjiely/cachewrtbuild@main
         with:
           ccache: 'true'
           mixkey: ${{ steps.gen_cache_mixkey.outputs.mixkey }}
@@ -160,7 +160,7 @@ jobs:
 
       - name: Upload assets to releases
         if: ${{ steps.compile.outputs.status == 'success' || steps.download_dl.outputs.status == 'success' }}
-        uses: HiGarfield/release-action@main
+        uses: tjiely/release-action@main
         with:
           artifacts: ${{ env.OUTPUT_DIR }}/*
           allowUpdates: true
@@ -169,7 +169,7 @@ jobs:
           omitBody: true
 
       - name: Remove old releases
-        uses: HiGarfield/delete-older-releases@master
+        uses: tjiely/delete-older-releases@master
         continue-on-error: true
         with:
           keep_latest: 1
