@@ -12,10 +12,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  do_repository_dispatch:
+    name: repository dispatch
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Repository dispatch
+        if: ${{ github.repository == 'tjiely/lede-17.01.4-Mod' && github.event_name == 'push' }}
+        uses: HiGarfield/repository-dispatch@v2
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          repository: ${{ secrets.SECOND_REPO }}
+          event-type: ${{ github.event.head_commit.message }}
 
   build:
     name: build
-   # needs: [ do_repository_dispatch ]
+    needs: [ do_repository_dispatch ]
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -105,7 +116,7 @@ jobs:
 
       - name: Cache
         if: ${{ env.TARGET_DEVICE != 'dl' }}
-        uses: tjiely/cachewrtbuild@main
+        uses: HiGarfield/cachewrtbuild@main
         with:
           ccache: 'true'
           mixkey: ${{ steps.gen_cache_mixkey.outputs.mixkey }}
@@ -149,7 +160,7 @@ jobs:
 
       - name: Upload assets to releases
         if: ${{ steps.compile.outputs.status == 'success' || steps.download_dl.outputs.status == 'success' }}
-        uses: tjiely/release-action@main
+        uses: HiGarfield/release-action@main
         with:
           artifacts: ${{ env.OUTPUT_DIR }}/*
           allowUpdates: true
@@ -158,7 +169,7 @@ jobs:
           omitBody: true
 
       - name: Remove old releases
-        uses: tjiely/delete-older-releases@master
+        uses: HiGarfield/delete-older-releases@master
         continue-on-error: true
         with:
           keep_latest: 1
