@@ -215,6 +215,6 @@ static void __init e8820_setup(void)
 				 e8820_leds_gpio);
 }
 
-MIPS_MACHINE(ATH79_MACH_XD3200, "E8820", "ZTE E8820", e8820_setup);
+MIPS_MACHINE(ATH79_MACH_E8820, "E8820", "ZTE E8820", e8820_setup);
 
 
