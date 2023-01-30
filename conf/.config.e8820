@@ -341,7 +341,8 @@ CONFIG_TARGET_ar71xx_generic=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_cpe830 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_cpe870 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_sr3200 is not set
-CONFIG_TARGET_ar71xx_generic_DEVICE_xd3200=y
+# CONFIG_TARGET_ar71xx_generic_DEVICE_xd3200 is not set
+CONFIG_TARGET_ar71xx_generic_DEVICE_e8820=y
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ZBTWE1526 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ZCN1523H28 is not set
 # CONFIG_TARGET_ar71xx_generic_DEVICE_ZCN1523H516 is not set
