@@ -48,6 +48,19 @@ static struct gpio_led xd3200_leds_gpio[] __initdata = {
 	},
 };
 
+static struct gpio_led e8820_leds_gpio[] __initdata = {
+	{
+		.name		= "e8820:green:system",
+		.gpio		= SR3200_XD3200_GPIO_LED_SYSTEM,
+		.active_low	= 1,
+	},
+	{
+		.name		= "e8820:blue:wlan2g",
+		.gpio		= SR3200_XD3200_GPIO_LED_WLAN2G,
+		.active_low	= 1,
+	},
+};
+
 static struct gpio_led sr3200_leds_gpio[] __initdata = {
 	{
 		.name		= "sr3200:green:system",
@@ -83,6 +96,11 @@ static const struct ar8327_led_info sr3200_leds_qca833x[] = {
 static const struct ar8327_led_info xd3200_leds_qca833x[] = {
 	AR8327_LED_INFO(PHY1_0, HW, "xd3200:green:lan"),
 	AR8327_LED_INFO(PHY2_0, HW, "xd3200:green:wan"),
+};
+
+static const struct ar8327_led_info e8820_leds_qca833x[] = {
+	AR8327_LED_INFO(PHY1_0, HW, "e8820:green:lan"),
+	AR8327_LED_INFO(PHY2_0, HW, "e8820:green:wan"),
 };
 
 /* Blink rate: 1 Gbps -> 8 hz, 100 Mbs -> 4 Hz, 10 Mbps -> 2 Hz */
@@ -185,3 +203,18 @@ static void __init xd3200_setup(void)
 }
 
 MIPS_MACHINE(ATH79_MACH_XD3200, "XD3200", "YunCore XD3200", xd3200_setup);
+
+static void __init e8820_setup(void)
+{
+	sr3200_xd3200_qca833x_data.leds = e8820_leds_qca833x;
+	sr3200_xd3200_qca833x_data.num_leds = ARRAY_SIZE(e8820_leds_qca833x);
+
+	sr3200_xd3200_common_setup();
+
+	ath79_register_leds_gpio(-1, ARRAY_SIZE(e8820_leds_gpio),
+				 e8820_leds_gpio);
+}
+
+MIPS_MACHINE(ATH79_MACH_XD3200, "E8820", "ZTE E8820", e8820_setup);
+
+

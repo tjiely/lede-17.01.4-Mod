@@ -520,10 +520,18 @@ TARGET_DEVICES += sr3200
 define Device/xd3200
   $(Device/sr3200)
   DEVICE_TITLE := YunCore XD3200
-  DEVICE_PACKAGES := kmod-ath10k-smallbuffers ath10k-firmware-qca988x
+  DEVICE_PACKAGES := kmod-ath10k ath10k-firmware-qca988x
   BOARDNAME = XD3200
 endef
 TARGET_DEVICES += xd3200
+
+define Device/e8820
+  $(Device/sr3200)
+  DEVICE_TITLE := ZTE E8820
+  DEVICE_PACKAGES := kmod-ath10k-smallbuffers ath10k-firmware-qca988x
+  BOARDNAME = E8820
+endef
+TARGET_DEVICES += e8820
 
 define Device/tellstick-znet-lite
   $(Device/tplink-16mlzma)
